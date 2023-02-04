@@ -12,8 +12,8 @@
       Show Details
     </button>
     <ul v-if="detailsAreVisible">
-      <li>Phone: {{ phoneNumber }}</li>
-      <li>Email: {{ emailAddress }}</li>
+      <li @click="showHide = !showHide">Phone: {{ phoneNumber }}</li>
+      <li v-if="showHide">Email: {{ emailAddress }}</li>
     </ul>
   </li>
 </template>
@@ -23,12 +23,13 @@ export default {
     name: String,
     phoneNumber: String,
     emailAddress: String,
-    trueFalse: String,
+    trueFalse: Boolean,
   },
   data() {
     return {
       detailsAreVisible: false,
       checkTrueFalse: this.trueFalse,
+      showHide: false,
     };
   },
   methods: {

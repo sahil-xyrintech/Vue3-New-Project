@@ -1,0 +1,3 @@
+npm clean cache --force
+npm install --force rimraf
+npm install --force fs-extra
