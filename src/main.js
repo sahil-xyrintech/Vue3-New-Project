@@ -1,6 +1,9 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import PrimeVue from "primevue/config";
+import axios from 'axios'
+import { VueAxios } from 'vue-axios'
+import store from './index.js';
 import "primeicons/primeicons.css";
 import "primevue/resources/themes/saga-blue/theme.css";
 import "primevue/resources/primevue.min.css";
@@ -21,4 +24,6 @@ app.component("MainBody", MainBody);
 app.component("MainTable", MainTable);
 app.component("OverlayPanel", OverlayPanel);
 app.use(PrimeVue);
+app.use(VueAxios, axios)
+app.use(store)
 app.mount("#app");
