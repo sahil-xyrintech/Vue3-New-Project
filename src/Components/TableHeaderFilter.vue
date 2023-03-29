@@ -13,7 +13,6 @@
             <ul class="space-y-3">
               <li
                 class="flex px-3 py-2 border rounded-md"
-                :class="{ 'border-indigo-500': filterApplied === index }"
                 v-for="(filter, index) in showFilters"
                 :key="index"
               >
@@ -44,7 +43,7 @@
         v-for="(item, index) in showFilters"
         :key="index"
       >
-        <li class="block">{{ index + " " + item.name }}</li>
+        <li class="block">{{ index }}</li>
       </ul>
     </div>
   </div>

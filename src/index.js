@@ -30,7 +30,7 @@ const store = createStore({
             //         fav: false,
             //     },
             // ]
-            filters: null,
+            filters: [],
             favFilters: null,
         }
     },
@@ -39,9 +39,9 @@ const store = createStore({
             state.filters = data.data
             // state.favFilters = data.data.filter(f => f.fav === true)
         },
-        // SET_FAVORITE_FILTER(state, filter, index) {
-        //     state.filters[index].fav = filter.fav
-        // }
+        SET_FAV_FILTERS(state, filter) {
+            state.filters = filter
+        }
     },
     actions: {
         async getFilter(context) {
@@ -56,9 +56,18 @@ const store = createStore({
         },
         async setFilter(context, filters) {
             await axios.post(
-                "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/filters/.json", { name: filters.name, fav: filters.fav }
+                "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/filters/.json", [{ name: filters.name, fav: filters.fav }]
             )
         },
+        async setFavFilter(context, index) {
+            const filters = Object.keys(context.state.filters).find(f => f === index)
+            const filter1 = context.state.filters.filters
+            console.log(filter1);
+            // await axios.put(
+            //     "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/filters/.json", filters
+            // );
+            context.commit('SET_FAV_FILTERS', filters);
+        }
         // setFavFilter(context, filterIndex) {
         //     axios
         //     .post(

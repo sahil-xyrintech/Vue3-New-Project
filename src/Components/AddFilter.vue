@@ -28,7 +28,6 @@
     <button class="border rounded-md py-1 px-4 bg-" type="submit">
       Submit
     </button>
-    {{ isFav }}{{ filterName }}
   </form>
 </template>
 <script setup>
