@@ -6,6 +6,8 @@
           Users
           <button @click="getFilters">Get Data</button>
         </h1>
+        <i class="fi fi-brands-facebook">abcd</i>
+        <i class="fi fi-rr-paper-plane text-xs text-red-500"></i>
         <p class="mt-2 text-sm text-gray-700">
           A list of all the users in your account including their name, title,
           email and role.
@@ -13,10 +15,14 @@
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
         <button
+          @click="icon = !icon"
           type="button"
-          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+          class="inline-flex items-center gap-1 justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
         >
-          Add user
+          <i class="fi fi-rr-star text-xs"></i>
+          <span> Add user </span>
+          <i class="fi fi-rr-user"></i>
+          <i :class="icon ? 'fi fi-ss-circle' : 'fi fi-rr-circle'"></i>
         </button>
       </div>
     </div>
@@ -29,7 +35,8 @@
             <div class="w-full py-3.5 px-4 bg-white border-b">
               <TableHeaderFilter />
             </div>
-            <table class="min-w-full divide-y divide-gray-300">
+            <AddFilter />
+            <!-- <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
                   <th
@@ -102,7 +109,7 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
           </div>
         </div>
       </div>
@@ -111,43 +118,45 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import TableHeaderFilter from "./TableHeaderFilter.vue";
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    department: "Optimization",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    image:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    department: "Optimization",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    department: "Optimization",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    department: "Optimization",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    image:
-      "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
+// const people = [
+//   {
+//     name: "Lindsay Walton",
+//     title: "Front-end Developer",
+//     department: "Optimization",
+//     email: "lindsay.walton@example.com",
+//     role: "Member",
+//     image:
+//       "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+//   {
+//     name: "Lindsay Walton",
+//     title: "Front-end Developer",
+//     department: "Optimization",
+//     email: "lindsay.walton@example.com",
+//     role: "Member",
+//     image:
+//       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+//   {
+//     name: "Lindsay Walton",
+//     title: "Front-end Developer",
+//     department: "Optimization",
+//     email: "lindsay.walton@example.com",
+//     role: "Member",
+//     image:
+//       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+//   {
+//     name: "Lindsay Walton",
+//     title: "Front-end Developer",
+//     department: "Optimization",
+//     email: "lindsay.walton@example.com",
+//     role: "Member",
+//     image:
+//       "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+//   },
+// ];
+const icon = ref(false);
 </script>

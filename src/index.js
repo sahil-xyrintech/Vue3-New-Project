@@ -31,42 +31,53 @@ const store = createStore({
             //     },
             // ]
             filters: null,
+            favFilters: null,
         }
     },
     mutations: {
         SET_FILTER(state, data) {
             state.filters = data.data
+            // state.favFilters = data.data.filter(f => f.fav === true)
         },
-        SET_FAVORITE_FILTER(isFav) {
-            isFav.fav = !isFav.fav
-            console.log(isFav)
-        }
+        // SET_FAVORITE_FILTER(state, filter, index) {
+        //     state.filters[index].fav = filter.fav
+        // }
     },
     actions: {
-        getFilter(context) {
-            axios
+        async getFilter(context) {
+            await axios
                 .get(
-                    "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/Filter.json"
+                    "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/filters/.json"
                 )
                 .then((response) => {
                     context.commit('SET_FILTER', response)
                 });
 
         },
-        setFavFilter() {
-            axios.post(
-                "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/Filter.json",
-            ).then((response) => {
-                // context.commit('SET_FAVORITE_FILTER', response.data[payload.index])
+        async setFilter(context, filters) {
+            await axios.post(
+                "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/filters/.json", { name: filters.name, fav: filters.fav }
+            )
+        },
+        // setFavFilter(context, filterIndex) {
+        //     axios
+        //     .post(
+        //         "https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/.json",
+        //     )
 
-                console.log(response)
-            });
-        }
+
+        // },
+        // deleteFilter(context, filterIndex) {
+        //     axios.delete("https://first-vue-app-844d4-default-rtdb.asia-southeast1.firebasedatabase.app/.json",${filterIndex})
+        // }
 
     },
     getters: {
         showFilters(state) {
             return state.filters
+        },
+        showFavFilter(state) {
+            return state.favFilters
         }
     }
 });

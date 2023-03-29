@@ -20,8 +20,12 @@
                 <span class="w-4/5" @click="isFilterClicked(index)">
                   {{ filter.name }}
                 </span>
-                <span class="w-1/5" @click="setFavFilter(index, filter.id)">
+                <span class="w-1/5" @click="setFavFilter(index)">
                   <i :class="filter.fav ? 'pi pi-star-fill' : 'pi pi-star'"></i>
+                  <i
+                    @click="deleteFilter(index)"
+                    class="pi pi-trash text-red-500 ml-5"
+                  ></i>
                 </span>
               </li>
             </ul>
@@ -29,30 +33,41 @@
       ></template>
     </OverlayPanel>
     <!-- <div class="p-2 border rounded-md">{{ appliedFilter }}</div> -->
-    <div class="flex gap-3 ml-3">
+    <div class="ml-3">
       <!-- <div v-for="item in favFilter" :key="item" class="p-2 border rounded-md">
         {{ item }}
       </div>
       <div>{{ favFilter.value }}</div> -->
-      {{ showFilters }}
+
+      <ul
+        class="grid grid-cols-1"
+        v-for="(item, index) in showFilters"
+        :key="index"
+      >
+        <li class="block">{{ index + " " + item.name }}</li>
+      </ul>
     </div>
   </div>
 </template>
 <script setup>
 // import axios from "axios";
-import { computed, onMounted } from "vue";
+import { computed, watch } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 const showFilters = computed(() => {
   return store.getters.showFilters;
 });
-const setFavFilter = (index, filterId) => {
-  store.dispatch("setFavFilter", {
-    index: index,
-    id: filterId,
-  });
+// const showFavFilter = computed(() => {
+//   return store.getters.showFavFilter;
+// });
+const setFavFilter = (index) => {
+  store.dispatch("setFavFilter", index);
 };
-onMounted(() => {
+const deleteFilter = (index) => {
+  store.dispatch("deleteFilter", index);
+};
+watch(() => {
   store.dispatch("getFilter");
+  store.getters.showFilters;
 });
 </script>

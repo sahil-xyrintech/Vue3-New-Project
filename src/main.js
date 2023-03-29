@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import '@flaticon/flaticon-uicons/css/all/all.css';
 import PrimeVue from "primevue/config";
 import axios from 'axios'
 import { VueAxios } from 'vue-axios'
@@ -15,6 +16,7 @@ import NavBar from "./Components/NavBar.vue";
 import MainBody from "./Components/MainBody.vue";
 import MainTable from "./Components/MainTable.vue";
 import OverlayPanel from "./Components/OverlayPanel.vue";
+import AddFilter from "./Components/AddFilter.vue";
 const app = createApp(App);
 app.component("FriendContact", FriendContact);
 app.component("NewFriend", NewFriend);
@@ -23,6 +25,7 @@ app.component("NavBar", NavBar);
 app.component("MainBody", MainBody);
 app.component("MainTable", MainTable);
 app.component("OverlayPanel", OverlayPanel);
+app.component("AddFilter", AddFilter);
 app.use(PrimeVue);
 app.use(VueAxios, axios)
 app.use(store)

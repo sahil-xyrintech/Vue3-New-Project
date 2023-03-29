@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <!-- <NavBar /> -->
     <MainBody class="m-5" />
   </div>
 </template>
